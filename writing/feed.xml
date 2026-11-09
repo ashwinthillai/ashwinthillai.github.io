@@ -17,6 +17,7 @@
     <title>Validating an AI-built app the way I&#x27;d validate a risk model</title>
     <link href="https://ashwint.com/writing/validating-buff/"/>
     <id>https://ashwint.com/writing/validating-buff/</id>
+    <published>2026-10-07T12:00:00Z</published>
     <updated>2026-11-08T12:00:00Z</updated>
     <summary>Pass criteria set first, a held-out test set, independent testers and controls that make mistakes cheap.</summary>
   </entry>
@@ -24,6 +25,7 @@
     <title>buff&#x27;s design: a notebook that is just files</title>
     <link href="https://ashwint.com/writing/buff-design/"/>
     <id>https://ashwint.com/writing/buff-design/</id>
+    <published>2026-10-07T12:00:00Z</published>
     <updated>2026-11-08T12:00:00Z</updated>
     <summary>Plain files you own, one job, three screens, rules instead of guesses, and AI that only suggests.</summary>
   </entry>
