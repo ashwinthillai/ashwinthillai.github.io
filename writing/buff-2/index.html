@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>buff 2.0: what's waiting, and who you're meeting · ashwinthillai</title>
+<meta name="description" content="buff 2.0 turns a typed notebook into the place for short work notes about people and projects. It tells you what's waiting and gets you up to speed before a meeting.">
+<meta name="author" content="Ashwin Thillai">
+<meta property="og:title" content="buff 2.0: what's waiting, and who you're meeting">
+<meta property="og:description" content="Three screens, plain-word todos, meetings, widgets and editing any note. Still just files.">
+<meta property="og:image" content="https://ashwinthillai.github.io/writing/assets/v2/01-today.png">
+<link rel="stylesheet" href="/writing/style.css">
+</head>
+<body>
+<a class="back" href="/">← ashwinthillai</a>
+
+<h1>buff 2.0: what's waiting, and who you're meeting</h1>
+<p class="byline">By Ashwin Thillai · November 2026</p>
+
+<p>The first buff was a notebook you typed into, like a terminal. You wrote a line and pressed Send, and buff filed it. It was quick to write in, but you had to remember the right command to get anything back out.</p>
+
+<p>So for 2.0 I asked a narrower question: what is buff <em>for</em>? My answer: <strong>buff is the place for short work notes about people and projects. It tells you what's waiting and gets you up to speed before a meeting.</strong> Long writing can live in other apps. Every change in 2.0 follows from that one sentence.</p>
+
+<h2>Three screens instead of one</h2>
+
+<p>buff now opens on <strong>Today</strong>. It shows what's overdue, what's due and what you're waiting on from other people, with a search box and a quick place to write. <strong>People &amp; projects</strong> gives everyone you work with a page. <strong>Notes</strong> is the original terminal, still with exactly two buttons: Send and Options.</p>
+
+<figure class="pair">
+  <div><img src="/writing/assets/v2/01-today.png" alt="Today: what's due, what you're waiting on and recent people and projects" loading="lazy"><figcaption>Today, first thing in the morning.</figcaption></div>
+  <div><img src="/writing/assets/v2/02-page.png" alt="Maya Chen's page: what she owes you, open decisions and the last notes" loading="lazy"><figcaption>A page with a plain brief.</figcaption></div>
+</figure>
+
+<h2>A brief without AI</h2>
+
+<p>Each page starts with a plain brief: how long since your last note, what they owe you, what you owe them, any open decisions and your last few notes. buff works it out with simple rules, on your phone, in a fraction of a second. If you add a Claude key, a <em>Write it up</em> button turns those notes into a fuller brief, but the plain version is always there.</p>
+
+<p>If you let it read your calendar, Today shows your next meeting with someone you've written about, with a Brief button and an optional reminder ten minutes before. buff only reads your calendar. Nothing from it is saved.</p>
+
+<h2>Write like a person</h2>
+
+<p>In 1.0 a todo had to start with <code>Do:</code>. Now you write <code>send Maya the slides by Friday</code> and buff shows what it understood before you send: <code>todo · Fri · Maya Chen</code>. <code>Bob will send the spec tomorrow</code> becomes something you're waiting on, and <code>I need coffee</code> stays a note. Every save has an <strong>undo</strong>.</p>
+
+<figure class="pair">
+  <div><img src="/writing/assets/v2/04-capture.png" alt="A plain sentence saved as a note, with its todo, person and project" loading="lazy"><figcaption>Plain words in, todos out.</figcaption></div>
+  <div><img src="/writing/assets/v2/03-todos.png" alt="All todos sorted into Today, This week and Waiting, in dark mode" loading="lazy"><figcaption>Tick, snooze, or give it a date.</figcaption></div>
+</figure>
+
+<h2>A real todo list, and widgets</h2>
+
+<p>All todos are grouped by when they're due, then by who you're waiting on. Tick a todo to close it, or swipe to snooze it to tomorrow or next week. Home Screen and Lock Screen widgets keep today's list in view, and an optional morning notification tells you how many are due.</p>
+
+<h2>Change your mind safely</h2>
+
+<p>Touch and hold any note, from any day, to edit or delete it. buff keeps the old text in a history file next to your notes, so every change can be undone, even on another device. The notes themselves are still plain markdown files in your iCloud Drive.</p>
+
+<h2>AI that suggests, never decides</h2>
+
+<p>On iPhones and iPads with Apple Intelligence, AI is now on by default, because Apple's on-device model is free and private. After you save a note it may offer up to three suggestions, such as a name to tag or a todo it noticed. Nothing changes until you tap one. Turn AI off and everything above still works.</p>
+
+<h2>What didn't change</h2>
+
+<p>There's still no account, no analytics and no ads, and I can't see your notes. Your notes are files you own and can open on a Mac or in any markdown app.</p>
+
+<h2>How 2.0 was built</h2>
+
+<p>I wrote the plan and Claude, Anthropic's AI model, wrote the code. For 2.0 several Claude sessions worked in parallel, each with one job: one wrote tests from the spec, another wrote the code to pass them, and a third merged the work. The app now has more than 600 automated tests. I test each part on my own iPhone and iPad, and the screenshots for this post came from a made-up demo notebook.</p>
+
+<h2>Try it</h2>
+
+<p>buff is free for iPhone and iPad. The <a href="/buff-app/docs/">buff docs</a> cover every feature, and <a href="/buff-app/">the buff site</a> has the App Store link once 2.0 is out.</p>
+
+<hr>
+<p class="note">I designed buff and tested it on my own devices. Claude wrote the code and helped draft this post. Screenshots use made-up demo notes.</p>
+
+<p class="note">© 2026 Ashwin Thillainatarajan. Text and screenshots are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>: share them with credit, unchanged and not for commercial use. buff's name, character and artwork are not covered by this licence, and buff's source code is private: all rights reserved. Apple, iPhone and iPad are trademarks of Apple Inc. Claude is a trademark of Anthropic.</p>
+
+<p class="back"><a class="back" href="/">← ashwinthillai</a> · <a class="back" href="/buff-app/">Leave it to buff</a></p>
+</body>
+</html>

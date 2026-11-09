@@ -1,0 +1,29 @@
+/* Shared style for the articles: the site's grey palette, monospace headings, readable body text. */
+body { font: 18px/1.65 -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; background: #E9E9EB; color: #1C1C1E; max-width: 40rem; margin: 3rem auto 4rem; padding: 0 1.25rem; }
+h1, h2, .byline, .back, table, pre, figcaption { font-family: ui-monospace, Menlo, monospace; }
+h1 { font-size: 1.5rem; line-height: 1.3; margin: 1.5rem 0 0.5rem; }
+h2 { font-size: 1.05rem; margin: 2.5rem 0 0.5rem; }
+a { color: #2F5D8A; }
+code { font: 0.85em ui-monospace, Menlo, monospace; background: #DCDCE0; padding: 0.05em 0.3em; border-radius: 4px; }
+.quiet, .byline, .back, .note, figcaption { color: #5E5E63; }
+.byline { font-size: 0.85rem; margin-bottom: 2rem; }
+.back { font-size: 0.85rem; text-decoration: none; }
+ul { padding-left: 1.2rem; }
+li { margin: 0.35rem 0; }
+.table-wrap { overflow-x: auto; margin: 1.25rem 0; }
+table { border-collapse: collapse; font-size: 0.8rem; width: 100%; }
+th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid #C9C9CE; vertical-align: top; }
+th { color: #5E5E63; font-weight: 600; }
+td.num { white-space: nowrap; }
+tr.key td { font-weight: 600; }
+pre { font-size: 0.7rem; line-height: 1.45; background: #DCDCE0; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+figure { margin: 1.75rem 0; text-align: center; }
+figure img, figure video { max-width: 100%; height: auto; border-radius: 14px; }
+figure.phone img, figure.phone video { width: 18rem; max-width: 80%; box-shadow: 0 2px 14px rgba(0,0,0,0.12); }
+figure.face video { width: 20rem; max-width: 85%; border-radius: 24px; }
+figure.pair { display: flex; gap: 1rem; justify-content: center; }
+figure.pair div { flex: 1; max-width: 18rem; }
+figure.pair img { width: 100%; box-shadow: 0 2px 14px rgba(0,0,0,0.12); }
+figcaption { font-size: 0.75rem; margin-top: 0.6rem; }
+hr { border: none; border-top: 1px solid #C9C9CE; margin: 2.5rem 0 1.25rem; }
+.note { font-size: 0.9rem; font-style: italic; }
