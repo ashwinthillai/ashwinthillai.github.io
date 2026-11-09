@@ -1,0 +1,124 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validating an AI-built app the way I'd validate a risk model · ashwinthillai</title>
+<meta name="description" content="How I check an iPhone app whose code was written by an AI: pass criteria set first, a held-out test set, independent testers, controls that make mistakes cheap, and monitoring a model I don't own.">
+<meta name="author" content="Ashwin Thillai">
+<link rel="stylesheet" href="/writing/style.css">
+</head>
+<body>
+<a class="back" href="/">← ashwinthillai</a>
+
+<h1>Validating an AI-built app the way I'd validate a risk model</h1>
+<p class="byline">By Ashwin Thillai · November 2026</p>
+
+<p>My job is to decide whether a model is fit to release. I've done that for 11 years, mostly with catastrophe models. Today I manage a validation team. This year I asked the same question about something new to me: could I trust an iPhone app whose code was written by an AI?</p>
+
+<p>The app is <a href="/writing/meet-buff/">Leave it to buff</a>, a notebook for short work notes about people and projects. I designed it and I test it. Claude, Anthropic's AI model, writes the code. Here is how I check it, what held up and what didn't.</p>
+
+<h2>What needs checking</h2>
+
+<p>Most of buff runs on fixed rules, not AI. Saving a note, finding todos in plain sentences, the brief on each person's page and matching calendar events to people are all plain code. (<a href="/writing/buff-design/">buff's design</a> explains why.) So most of the app can be tested like ordinary software.</p>
+
+<p>Two parts use a language model and get the full validation treatment. The first is buff's helper: you type a request such as <code>@buff what's waiting for me</code>, and a small language model built into iOS turns it into one of buff's commands. The second is suggestions: after you save a note, the same model may suggest a name to tag or a todo it noticed. In both cases a model is making decisions about someone's notes.</p>
+
+<p>Why Apple's model? I compared it with Google's Gemma 2B, an open model I could have bundled with the app. Gemma runs on more iPhones, and it can be fine-tuned. But it would add more than a gigabyte to the app, and it would need an inference engine I'd have to maintain. Apple's model is already on the phone, and the system manages it. The job is small, too: turn a short request into a command. The trade-off is that Apple's model needs an Apple Intelligence device. On other devices, buff falls back to simple phrase matching, and suggestions are off.</p>
+
+<h2>Deciding what "good" means, first</h2>
+
+<p>I wrote three pass criteria into the spec before the helper was built:</p>
+<ul>
+  <li><strong>Accuracy.</strong> The helper picks the right command at least 90% of the time. I measure this on a golden set: a fixed list of test requests, each with the answer it should get.</li>
+  <li><strong>Safety.</strong> A question never changes your notes. Read-only requests must produce zero write commands.</li>
+  <li><strong>Real devices.</strong> The bar has to be met on a real phone, not only in the simulator.</li>
+</ul>
+<p>Why set the bar first? Once you see results, it's tempting to move the bar to where you landed.</p>
+
+<h2>What the results showed</h2>
+
+<p>I set 25 requests aside and never used them while fixing problems. This held-out set is the closest thing to a stranger typing something new.</p>
+
+<div class="table-wrap">
+<table>
+  <thead><tr><th>Run</th><th>Requests</th><th>Result</th></tr></thead>
+  <tbody>
+    <tr><td>First run, before fixes</td><td class="num">—</td><td>about 60% (exact count not kept)</td></tr>
+    <tr><td>After fixes, on the requests used for tuning</td><td class="num">146</td><td class="num">96% (140 of 146)</td></tr>
+    <tr class="key"><td>Held out: new requests, run once</td><td class="num">25</td><td class="num">76% (19 of 25)</td></tr>
+    <tr><td>Overall</td><td class="num">171</td><td class="num">92% (159 of 171)</td></tr>
+    <tr class="key"><td>Questions that produced a change</td><td class="num">171</td><td class="num">0</td></tr>
+  </tbody>
+</table>
+</div>
+
+<p>The overall score of 92% clears the bar. The held-out score of 76% does not, and it's the number I trust more. It also comes from a small sample. The 95% confidence interval (Wilson) for 19 out of 25 runs from about 57% to 89%. Even the top of that range is below 90%.</p>
+
+<p>The safety result held: no question produced a change. As the helper learned new commands, the golden set grew and was re-run each time. It stayed in the low 90s: 94% of 181 requests, then 93% of 186. All of these runs were in the simulator. The run on a real device is still to do, so the third criterion is not yet met.</p>
+
+<p>So the honest status is what risk teams call a <strong>conditional approval</strong>. The feature can be used. Its limits are written down. Controls are in place so mistakes are cheap.</p>
+
+<h2>Making mistakes cheap</h2>
+
+<p>The helper gets about one new request in four wrong. So a wrong answer has to be harmless. Plain code makes every decision that matters. The model doesn't.</p>
+<ul>
+  <li>Every command has a fixed label: read, write or maintenance. The model can't change the label.</li>
+  <li>A write never runs on its own. It appears in the input box and waits for you to press Send. Then buff offers undo.</li>
+  <li>If the model is unsure, buff doesn't guess. It shows up to three commands to choose from.</li>
+  <li>A suggestion after you save a note survives only if code confirms it: the name must already exist in your notes, or the words must be copied from the note itself. Nothing changes until you tap, and the tap can be undone.</li>
+  <li>AI can tidy a note's wording. Code then checks that every tag, todo and decision is still there. If anything is missing, the rewrite is thrown away. The original note never changes.</li>
+  <li>People you mark as private are left out of every request to any model.</li>
+</ul>
+<p>The biggest accuracy gain came from the same idea. In the first run, most errors came from the model second-guessing itself. We moved those decisions into plain code. Accuracy went from about 60% into the 90s.</p>
+
+<h2>A finding worth the effort</h2>
+
+<p>After the results above, we added one new command to the model's list. The model's answers then changed in a place we hadn't touched. We re-ran the full golden set. It showed that a question about a todo would now close that todo. We caught this before release. We fixed it with a rule: a question can never produce the command that closes a todo. We didn't just reword the model's instructions.</p>
+
+<p>Risk models teach the same lesson. A change in one place can move behaviour somewhere else. So the whole golden set runs again after every change.</p>
+
+<h2>Independent testing, even when everyone is an AI</h2>
+
+<p>In model risk, the people who validate a model are not the people who built it. I copied that. Each piece of work is split between separate Claude sessions with separate jobs:</p>
+<ul>
+  <li>A <strong>tester</strong> writes the tests from the written spec alone, before seeing any code.</li>
+  <li>An <strong>implementer</strong> writes the code and has to make those tests pass. It can propose a change to a test, with a reason, but can't make the change itself.</li>
+  <li>An <strong>integrator</strong> merges the work, runs everything and reports what still fails. Known failures are listed by name, not hidden.</li>
+  <li>For risky changes, a <strong>reviewer</strong> reads the code against the spec and the app's hard rules. I skipped this once, for the feature that edits and deletes notes, because I wanted to merge. That review is still on my list.</li>
+</ul>
+<p>Each feature also has acceptance criteria written in plain language before any code, and tests are tagged to them. On GitHub, every change into the main branch runs automatically: quick checks first, then the tests for that feature. Every change that lands on main runs the full suite of about 600 tests and opens an issue if anything breaks.</p>
+
+<h2>Tests for promises, not just features</h2>
+
+<p>Some of the most useful tests check promises the app makes rather than single features. buff promises that your original notes are the source of truth. Everything else (the todo list, the index, the summaries, the widget's data) must rebuild from them byte for byte. So a test rebuilds everything twice and checks that nothing changed. buff also promises nothing is lost when you edit or delete a note. So tests check that the old text is always written to a history file first, and that two devices editing the same note end up with one note in place and the other kept as a copy.</p>
+
+<h2>Real devices find what tests miss</h2>
+
+<p>Each stage ends with a checklist on my own iPhone and iPad. Devices keep finding problems the tests missed. One build reached TestFlight with an Options button that did nothing; now a UI test taps that button. Even taking the App Store screenshots counts as a test. Driving every screen on an iPad simulator for the store pictures turned up a dark-mode screen with an unreadable title that no checklist had covered.</p>
+
+<p>My rule since the first submission: no build goes to App Store review until the checklist passes on both devices. I've broken it more than once when I was in a hurry. The very first build went to Apple untested and came back with questions. Another went to TestFlight untested, and that's the one with the dead Options button. Each time, skipping the check cost more than running it would have. So the check is now step zero of the release guide, before the Submit button.</p>
+
+<h2>Watching a model I don't own</h2>
+
+<p>Apple updates its model with iOS releases. So buff's behaviour can change while buff's code stays the same. buff collects no usage data, by design. That means there is nothing to monitor in the field. The plan is simple. After each iOS update, I re-run the golden set before relying on the new model. In my day job I'm on the side that provides models. Here I depend on someone else's.</p>
+
+<h2>What I'd take to any AI system</h2>
+<ul>
+  <li>Decide what "good" means before you look at results.</li>
+  <li>Keep some test data aside. Report it separately, even when it's the weaker number.</li>
+  <li>Keep the builder and the checker separate, even when both are AI.</li>
+  <li>Re-run everything after every change.</li>
+  <li>Put plain-code checks around the model, so its mistakes stay affordable.</li>
+  <li>Test the promises, not just the features.</li>
+  <li>Treat a vendor's model update as a model change.</li>
+</ul>
+
+<hr>
+<p class="note">Claude (Anthropic) wrote buff's code in Claude Code. It also helped draft this article from the project's build journal. The validation approach, criteria and conclusions are mine. More about buff: <a href="/writing/meet-buff/">Meet buff</a> (what it does), <a href="/writing/buff-design/">buff's design</a> (the ideas behind it) and <a href="/writing/buff-2/">buff 2.0</a> (the latest release).</p>
+
+<p class="note">© 2026 Ashwin Thillainatarajan. Text and screenshots are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>: share them with credit, unchanged and not for commercial use. buff's name, character and artwork are not covered by this licence, and buff's source code is private: all rights reserved. Apple, iPhone and iPad are trademarks of Apple Inc. Claude is a trademark of Anthropic. Gemma is a trademark of Google LLC.</p>
+
+<p class="back"><a class="back" href="/">← ashwinthillai</a> · <a class="back" href="/writing/meet-buff/">Meet buff</a> · <a class="back" href="/writing/buff-design/">buff's design</a> · <a class="back" href="/writing/buff-2/">buff 2.0</a></p>
+</body>
+</html>
