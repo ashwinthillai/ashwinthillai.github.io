@@ -1,22 +1,34 @@
-/* Shared style for the articles: the site's grey palette, monospace headings, readable body text. */
-body { font: 18px/1.65 -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif; background: #E9E9EB; color: #1C1C1E; max-width: 40rem; margin: 3rem auto 4rem; padding: 0 1.25rem; }
-h1, h2, .byline, .back, table, pre, figcaption { font-family: ui-monospace, Menlo, monospace; }
+/* ashwint.com: one stylesheet for the home page, the writing index and every article.
+   Grey palette, monospace headings, readable body text; dark mode follows the system. */
+:root {
+  --bg: #E9E9EB; --ink: #1C1C1E; --quiet: #5E5E63; --line: #C9C9CE; --well: #DCDCE0;
+  --link: #2F5D8A; --card: #F2F2F4; --accent: #B4583A;
+  --mono: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  --sans: -apple-system, system-ui, "Segoe UI", Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #1B1B1D; --ink: #ECECEE; --quiet: #9A9AA0; --line: #3A3A3E; --well: #2A2A2D;
+          --link: #8DB4DC; --card: #232326; --accent: #E08A6C; }
+}
+* { box-sizing: border-box; }
+body { font: 18px/1.65 var(--sans); background: var(--bg); color: var(--ink); max-width: 42rem; margin: 0 auto; padding: 0 1.25rem 3rem; -webkit-text-size-adjust: 100%; }
+h1, h2, h3, .byline, .back, table, pre, figcaption, .site-header, .site-footer, .post-meta, .eyebrow { font-family: var(--mono); }
 h1 { font-size: 1.5rem; line-height: 1.3; margin: 1.5rem 0 0.5rem; }
 h2 { font-size: 1.05rem; margin: 2.5rem 0 0.5rem; }
-a { color: #2F5D8A; }
-code { font: 0.85em ui-monospace, Menlo, monospace; background: #DCDCE0; padding: 0.05em 0.3em; border-radius: 4px; }
-.quiet, .byline, .back, .note, figcaption { color: #5E5E63; }
+a { color: var(--link); text-underline-offset: 0.15em; }
+code { font: 0.85em var(--mono); background: var(--well); padding: 0.05em 0.3em; border-radius: 4px; }
+.quiet, .byline, .back, .note, figcaption { color: var(--quiet); }
 .byline { font-size: 0.85rem; margin-bottom: 2rem; }
 .back { font-size: 0.85rem; text-decoration: none; }
 ul { padding-left: 1.2rem; }
 li { margin: 0.35rem 0; }
 .table-wrap { overflow-x: auto; margin: 1.25rem 0; }
 table { border-collapse: collapse; font-size: 0.8rem; width: 100%; }
-th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid #C9C9CE; vertical-align: top; }
-th { color: #5E5E63; font-weight: 600; }
+th, td { text-align: left; padding: 0.45rem 0.6rem; border-bottom: 1px solid var(--line); vertical-align: top; }
+th { color: var(--quiet); font-weight: 600; }
 td.num { white-space: nowrap; }
 tr.key td { font-weight: 600; }
-pre { font-size: 0.7rem; line-height: 1.45; background: #DCDCE0; padding: 1rem; border-radius: 8px; overflow-x: auto; }
+pre { font-size: 0.7rem; line-height: 1.45; background: var(--well); padding: 1rem; border-radius: 8px; overflow-x: auto; }
 figure { margin: 1.75rem 0; text-align: center; }
 figure img, figure video { max-width: 100%; height: auto; border-radius: 14px; }
 figure.phone img, figure.phone video { width: 18rem; max-width: 80%; box-shadow: 0 2px 14px rgba(0,0,0,0.12); }
@@ -25,5 +37,41 @@ figure.pair { display: flex; gap: 1rem; justify-content: center; }
 figure.pair div { flex: 1; max-width: 18rem; }
 figure.pair img { width: 100%; box-shadow: 0 2px 14px rgba(0,0,0,0.12); }
 figcaption { font-size: 0.75rem; margin-top: 0.6rem; }
-hr { border: none; border-top: 1px solid #C9C9CE; margin: 2.5rem 0 1.25rem; }
+hr { border: none; border-top: 1px solid var(--line); margin: 2.5rem 0 1.25rem; }
 .note { font-size: 0.9rem; font-style: italic; }
+
+/* Site header and footer (every page). */
+.site-header { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 0.5rem 1.25rem; padding: 1.5rem 0 1rem; border-bottom: 1px solid var(--line); margin-bottom: 1.5rem; font-size: 0.85rem; }
+.site-header .name { font-weight: 700; color: var(--ink); text-decoration: none; font-size: 1rem; }
+.site-header nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+.site-header nav a { color: var(--quiet); text-decoration: none; }
+.site-header nav a:hover, .site-header nav a[aria-current] { color: var(--ink); }
+.site-footer { border-top: 1px solid var(--line); margin-top: 3rem; padding-top: 1rem; font-size: 0.75rem; color: var(--quiet); display: flex; flex-wrap: wrap; gap: 0.4rem 1rem; justify-content: space-between; }
+.site-footer a { color: var(--quiet); }
+
+/* Home page. */
+.intro h1 { font-size: 2rem; margin: 2rem 0 0.75rem; }
+.intro p { margin: 0.6rem 0; }
+.links { font-family: var(--mono); font-size: 0.85rem; display: flex; flex-wrap: wrap; gap: 0.5rem 1.25rem; margin: 1.25rem 0 0; padding: 0; list-style: none; }
+.links li { margin: 0; }
+.eyebrow { font-size: 0.75rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--quiet); margin: 3rem 0 0.75rem; font-weight: 600; }
+.posts { list-style: none; padding: 0; margin: 0; }
+.posts li { margin: 0; padding: 1rem 0; border-bottom: 1px solid var(--line); }
+.posts li:first-child { border-top: 1px solid var(--line); }
+.posts h3 { font-size: 1rem; margin: 0.15rem 0 0.3rem; line-height: 1.4; }
+.posts h3 a { color: var(--ink); text-decoration: none; }
+.posts h3 a:hover { color: var(--link); text-decoration: underline; }
+.posts p { margin: 0; font-size: 0.95rem; color: var(--quiet); }
+.post-meta { font-size: 0.75rem; color: var(--quiet); }
+.tag { display: inline-block; font-family: var(--mono); font-size: 0.7rem; color: var(--accent); margin-left: 0.5rem; }
+.project { display: flex; gap: 1rem; align-items: flex-start; background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 1rem 1.1rem; }
+.project img { width: 56px; height: 56px; border-radius: 13px; flex: none; }
+.project h3 { font-size: 1rem; margin: 0 0 0.25rem; }
+.project p { margin: 0 0 0.5rem; font-size: 0.95rem; }
+.project .links { margin: 0; font-size: 0.8rem; }
+
+@media (max-width: 30rem) {
+  body { font-size: 17px; }
+  .intro h1 { font-size: 1.6rem; }
+  figure.pair { flex-direction: column; align-items: center; }
+}

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Ashwin Thillai — Writing</title>
+  <link href="https://ashwint.com/writing/"/>
+  <link rel="self" href="https://ashwint.com/writing/feed.xml"/>
+  <id>https://ashwint.com/writing/</id>
+  <updated>2026-11-08T12:00:00Z</updated>
+  <author><name>Ashwin Thillai</name></author>
+  <entry>
+    <title>buff 2.0: what&#x27;s waiting, and who you&#x27;re meeting</title>
+    <link href="https://ashwint.com/writing/buff-2/"/>
+    <id>https://ashwint.com/writing/buff-2/</id>
+    <updated>2026-11-08T12:00:00Z</updated>
+    <summary>Three screens, plain-word todos, meetings, widgets and editing any note. Still just files.</summary>
+  </entry>
+  <entry>
+    <title>Validating an AI-built app the way I&#x27;d validate a risk model</title>
+    <link href="https://ashwint.com/writing/validating-buff/"/>
+    <id>https://ashwint.com/writing/validating-buff/</id>
+    <updated>2026-11-08T12:00:00Z</updated>
+    <summary>Pass criteria set first, a held-out test set, independent testers and controls that make mistakes cheap.</summary>
+  </entry>
+  <entry>
+    <title>buff&#x27;s design: a notebook that is just files</title>
+    <link href="https://ashwint.com/writing/buff-design/"/>
+    <id>https://ashwint.com/writing/buff-design/</id>
+    <updated>2026-11-08T12:00:00Z</updated>
+    <summary>Plain files you own, one job, three screens, rules instead of guesses, and AI that only suggests.</summary>
+  </entry>
+  <entry>
+    <title>Meet buff, the notebook that remembers for you</title>
+    <link href="https://ashwint.com/writing/meet-buff/"/>
+    <id>https://ashwint.com/writing/meet-buff/</id>
+    <updated>2026-11-08T12:00:00Z</updated>
+    <summary>What buff does, in plain English: what&#x27;s waiting, and what you need before a meeting.</summary>
+  </entry>
+</feed>
