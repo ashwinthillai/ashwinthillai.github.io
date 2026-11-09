@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>buff's design: a notebook that is just files · ashwinthillai</title>
+<meta name="description" content="What makes buff different from other note apps: plain files you own, one job, three screens, rules instead of guesses, nothing ever lost, and AI that only suggests.">
+<meta name="author" content="Ashwin Thillai">
+<link rel="stylesheet" href="/writing/style.css">
+</head>
+<body>
+<a class="back" href="/">← ashwinthillai</a>
+
+<h1>buff's design: a notebook that is just files</h1>
+<p class="byline">By Ashwin Thillai · November 2026</p>
+
+<p>Most note apps ask you to decide where a note goes before you write it. Is it a folder, a notebook or a page? Then they keep your notes in their own database. buff does the opposite. You write first. buff files the note afterwards, using rules you can read. And your notes stay in files you own.</p>
+
+<p>buff also has one narrow job: <strong>it's the place for short work notes about people and projects. It tells you what's waiting and gets you up to speed before a meeting.</strong> Long writing belongs in other apps. Every design choice below follows from that sentence.</p>
+
+<h2>1. Your notes are plain files</h2>
+
+<p>Every note goes into a plain markdown file, one file per day. The files live in your own iCloud Drive, in a folder called <strong>Buff notes</strong>. There's no database, no account and no server. You can open your notes in the Files app, on a Mac or in any markdown editor. Your notes don't depend on buff.</p>
+
+<p>One rule holds it all together: <strong>the original is the source of truth.</strong> buff builds everything else from it: the tidy daily logs, the todo list, the index of people and projects, the weekly digests, and even the summary the Home Screen widget reads. Any of these can be rebuilt from scratch at any time, and they come out byte for byte the same.</p>
+
+<pre>you type ──► logs/_original/2026-11-08.md   (what you wrote)
+                       │
+                       ▼  rules, on every Send, no AI
+        ┌──────────────┼──────────────┬──────────────────┐
+        ▼              ▼              ▼                  ▼
+ logs/2026-11-08.md   todos.md     _index.md           digest/
+ (tidy, tagged)    (one list)   (people, projects)  (weekly, monthly)
+                       │
+                       ▼  read, never stored
+          Today · pages and briefs · widget
+
+edit or delete ──► logs/_history/2026-11-08.md   (old text first, only ever added to)</pre>
+
+<h2>2. One job, three screens</h2>
+
+<p>buff has three screens, because the job has three parts.</p>
+<ul>
+  <li><strong>Today</strong> answers "what's waiting?": what's overdue, due today, owed to you, and your next meeting.</li>
+  <li><strong>People &amp; projects</strong> answers "what do I need to know before I meet them?" Each person and project gets a page that opens with a short brief.</li>
+  <li><strong>Notes</strong> is where you write. It's a calm terminal with exactly two buttons, Send and Options. Everything else there is typed or tapped.</li>
+</ul>
+<p>Today and the pages use ordinary iPhone controls: rows, checkboxes, swipes and a search field. Notes stays deliberately bare, because writing should be one box and one button. Dates organise everything underneath: whatever you send is filed under today.</p>
+
+<figure class="pair">
+  <div><img src="/writing/assets/screens/01-today.png" alt="Today: what's due, what you're waiting on and recent people and projects" loading="lazy"><figcaption>Today: what's waiting.</figcaption></div>
+  <div><img src="/writing/assets/screens/02-page.png" alt="Maya Chen's page with a brief: what she owes you, open decisions and the last notes" loading="lazy"><figcaption>A page: what to know before you meet.</figcaption></div>
+</figure>
+
+<h2>3. Rules do the filing, not guesses</h2>
+
+<p>Plain rules file your note the moment you press Send. No AI is involved.</p>
+<ul>
+  <li>A sentence where someone commits to something becomes a todo. "Send Maya the slides by Friday" is yours, due Friday. "Bob will send the spec tomorrow" is something you're waiting on.</li>
+  <li>A day word only counts where it reads as a date. "Write the report today" is due today; "a note about the today tab" is just a note.</li>
+  <li>A line that starts with <code>Decision:</code> is recorded with its date.</li>
+  <li>Names you've used before are recognised, and new ones are offered, not assumed.</li>
+</ul>
+<p>Rules are predictable, instant, free and private, and you can see what they did. Before you send, a preview shows what buff understood. After you send, a line says what it saved, with undo. When a rule isn't sure, buff keeps your words as a plain note and asks. It doesn't guess.</p>
+
+<p>The same goes for reading. The brief on each page (days since your last note, what's owed each way, open decisions, the last few notes) is worked out by rules too. So is matching a calendar event to a person: by attendee, by a name in the title, or by an alias you confirmed once. If buff isn't sure that "Maya C." is Maya Chen, it asks, and remembers your answer in your own notes.</p>
+
+<figure class="phone">
+  <img src="/writing/assets/screens/04-capture.png" alt="A plain sentence saved as a note, with its person and project on a line below and a Saved line with undo" loading="lazy">
+  <figcaption>Plain words in. The Saved line says what buff filed.</figcaption>
+</figure>
+
+<h2>4. Nothing is ever lost</h2>
+
+<p>You can edit or delete any note from any day. Before buff changes a day's file, it copies the old text into a history file for that day. History files are only ever added to, never rewritten. So every edit and every delete can be undone, even an undo. Each note carries a hidden id that never changes, which lets buff tell an edit apart from a stale copy when two devices sync. If both devices changed the same note, buff keeps one in place and the other as a marked copy rather than throwing either away.</p>
+
+<h2>5. A terminal you can talk to</h2>
+
+<p>Notes feels like a terminal, but a calm one. Type <code>/week</code> to see your week. Type <code>/todos</code> to see what's open. Dates, names and todos in the output can be tapped, and a name opens that person's page. You don't have to learn any commands, though. Start with <code>@buff</code> and ask in plain words, such as "what's waiting for me". buff shows the command it chose, so you learn the shortcuts as you go. On an iPad keyboard, ⌘K opens a searchable menu of every common command.</p>
+
+<figure class="phone">
+  <img src="/writing/assets/screens/06-ask.png" alt="Asking buff what's waiting: it shows the command it ran and the open todos" loading="lazy">
+  <figcaption>Ask in plain words. buff shows the command it ran.</figcaption>
+</figure>
+
+<h2>6. AI suggests; it never decides</h2>
+
+<p>AI is never part of saving or filing a note, and buff works fully without it.</p>
+<ul>
+  <li><strong>On your device by default.</strong> Where Apple Intelligence is available, buff uses Apple's on-device model, which is free, works offline and keeps your words on your device. It handles plain-language requests and offers up to three suggestions after you save a note, such as a name to tag or a todo it noticed.</li>
+  <li><strong>Suggestions are filtered by code.</strong> A suggestion survives only if it names someone you already have or copies words from the note itself. Nothing changes until you tap one, and every tap can be undone.</li>
+  <li><strong>The model picks; Claude writes.</strong> The on-device model only chooses and copies. Anything that writes new text from your notes, like a fuller brief, uses Claude with your own key. A brief remembers which days it has read, so asking again only sends what's new.</li>
+  <li><strong>Checked by plain code.</strong> AI can tidy a note's wording. Code then checks that no tag, todo or decision was lost. If anything was lost, the change is dropped. The original stays untouched either way.</li>
+  <li><strong>Private people.</strong> You can mark a person as private. Every AI route then leaves out what you wrote about them.</li>
+</ul>
+
+<h2>7. Your calendar is read, never kept</h2>
+
+<p>buff asks for calendar access only when you tap "Show your meetings here", never at launch. It reads today's and tomorrow's events on your device, matches them to the people in your notes, and shows the next meeting with a brief. Nothing from your calendar is written to your notes or sent anywhere. Reminders and the morning todo list are local notifications. Without calendar access, everything else works.</p>
+
+<h2>What it adds up to</h2>
+
+<p>buff is quick to write into. It organises itself in predictable ways, it shows you what's waiting, and it never holds your notes hostage. Every technical choice follows from one decision: your words, in plain files, organised by rules you can read. AI helps, but the app doesn't depend on it.</p>
+
+<hr>
+<p class="note">Claude (Anthropic) wrote buff's code in Claude Code and helped draft this article from the project's design notes. buff's architecture builds on a note system I designed in spring 2026, itself inspired by Andrej Karpathy's <a href="https://gist.github.com/karpathy/442a6bf555914893e9891c11519de94f">LLM Wiki</a> idea. Screenshots use made-up demo notes.</p>
+
+<p class="note">© 2026 Ashwin Thillainatarajan. Text and screenshots are licensed under <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/">CC BY-NC-ND 4.0</a>: share them with credit, unchanged and not for commercial use. buff's name, character and artwork are not covered by this licence, and buff's source code is private: all rights reserved. Apple, iPhone and iPad are trademarks of Apple Inc. Claude is a trademark of Anthropic. buff's screen font is Carlito (SIL Open Font License 1.1).</p>
+
+<p class="back"><a class="back" href="/">← ashwinthillai</a> · <a class="back" href="/writing/meet-buff/">Meet buff</a> · <a class="back" href="/writing/validating-buff/">How I validated it</a></p>
+</body>
+</html>
